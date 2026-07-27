@@ -705,12 +705,35 @@
     text-decoration: none;
   }
   .auth-switch a:hover { text-decoration: underline; }
+
+/* Exercise GIF media */
+.ex-gif-wrap { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:var(--bg-secondary,#f0f0f3); overflow:hidden; }
+.ex-gif-wrap.img-error { background:var(--bg-secondary,#f0f0f3); }
+.ex-gif-wrap.img-error::after { content:'🏋️'; font-size:32px; opacity:0.4; }
+.ex-gif { width:100%; height:100%; object-fit:cover; display:block; }
+.ex-thumb-wrap { width:48px; height:48px; border-radius:8px; overflow:hidden; background:var(--bg-secondary,#f0f0f3); flex-shrink:0; }
+.ex-thumb { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Loading state */
+.loading-state { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 20px; gap:16px; color:var(--text-muted); }
+.loading-state p { font-size:14px; }
+.loading-spinner { width:36px; height:36px; border:3px solid var(--border,rgba(0,0,0,0.1)); border-top-color:var(--brand,#4B3FE3); border-radius:50%; animation:spin 0.8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* Pagination / load more */
+.load-more-wrap { grid-column:1/-1; display:flex; justify-content:center; padding:16px 0 24px; }
+.load-more-btn { padding:10px 24px; border:1px solid var(--border,rgba(0,0,0,0.12)); border-radius:999px; background:transparent; color:var(--text,#333); font-size:13px; cursor:pointer; transition:all 0.2s; }
+.load-more-btn:hover { background:var(--bg-secondary,#f0f0f3); border-color:var(--brand,#4B3FE3); color:var(--brand,#4B3FE3); }
+
+/* Card media without difficulty tag */
+.card-media .tag-top { display:none; }
+
 </style>
 <style>.trae-browser-inspect-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:999997;pointer-events:auto;background:rgba(0,0,0,0)}.trae-browser-inspect-highlight-box{position:absolute;top:0;left:0;z-index:999998;display:none}.trae-browser-inspect-highlight-tag{position:absolute;left:0px;top:0px;height:18px;padding:0 6px;box-sizing:border-box;border-radius:4px;background-color:var(--vscode-icube-colorSuccessHover, "#2FB287");color:var(--vscode-icube-colorSnow, "#fff");font-size:12px;font-weight:400;display:none;align-items:center;z-index:999999}.trae-browser-inspect-highlight-box-show{display:flex}.trae-browser-inspect-select-button.trae-browser-inspect-highlight-box-show{display:flex !important}.trae-browser-inspect-select-button{position:absolute;top:0;left:0;background-color:var(--vscode-icube--bg-bg-base-secondary, "#222427");color:var(--vscode-icube--text-text-default-active, "#F5F9FE");font-size:11px;font-weight:500;border:1px solid var(--vscode-icube--border-neutral-l1, "#E0E2F217");border-radius:6px;padding:0 8px;height:32px;display:none;align-items:center;cursor:pointer;z-index:999999;gap:4px}.trae-browser-inspect-select-button svg,.trae-browser-inspect-select-button span{z-index:1}.trae-browser-inspect-select-highlight-box{background:rgba(0,0,0,0) !important}.trae-browser-inspect-select-highlight-box .trae-browser-inspect-highlight-tag{background-color:var(--vscode-icube--status-success-active, "#1E8B56")}.trae-browser-inspect-comment-card-container{position:fixed;top:0;left:0;z-index:9999999;pointer-events:auto}.trae-browser-inspect-comment-card-container .trae-browser-inspect-comment-card{display:flex;padding-top:0px !important;align-items:center;z-index:9999999 !important;background-color:var(--vscode-icube--bg-bg-menu)}*[contenteditable]{outline:none}.trae-browser-inspect-click-effect{position:fixed;width:40px;height:40px;margin-left:-20px;margin-top:-20px;border-radius:50%;background-color:var(--vscode-icube-colorSuccessHover, #2FB287);pointer-events:none;animation:trae-browser-inspect-ripple 500ms ease-out forwards;z-index:999999}@keyframes trae-browser-inspect-ripple{0%{transform:scale(0.3);opacity:.8}100%{transform:scale(2);opacity:0}}.trae-browser-inspect-ref-box{position:absolute;border:2px solid var(--vscode-icube-colorSuccessHover, "#2FB287");pointer-events:none;z-index:999998;animation:trae-browser-inspect-fadeInOut 2s ease-in-out forwards}.trae-browser-inspect-ref-label{position:absolute;top:-14px;left:0;height:14px;padding:0 4px;box-sizing:border-box;border-radius:2px;background-color:var(--vscode-icube-colorSuccessHover, "#2FB287");color:var(--vscode-icube-colorSnow, "#fff");font-size:9px;font-weight:500;display:flex;align-items:center;white-space:nowrap;z-index:999999}@keyframes trae-browser-inspect-fadeInOut{0%{opacity:0}10%{opacity:1}90%{opacity:1}100%{opacity:0}}.trae-browser-inspect-input-highlight{position:absolute;border:2px solid var(--vscode-icube-colorSuccessHover, "#2FB287");border-radius:4px;pointer-events:none;z-index:999998;box-shadow:0 0 8px var(--vscode-icube-colorSuccessHover, "#2FB287");animation:trae-browser-inspect-input-pulse 600ms ease-out forwards}@keyframes trae-browser-inspect-input-pulse{0%{opacity:0;box-shadow:0 0 0 var(--vscode-icube-colorSuccessHover, "#2FB287")}30%{opacity:1;box-shadow:0 0 12px var(--vscode-icube-colorSuccessHover, "#2FB287")}100%{opacity:0;box-shadow:0 0 0 var(--vscode-icube-colorSuccessHover, "#2FB287")}}.trae-browser-inspect-virtual-cursor{position:fixed;width:20px;height:20px;pointer-events:none;z-index:9999999;opacity:0;transition:opacity .2s ease}.trae-browser-inspect-virtual-cursor.trae-browser-inspect-cursor-visible{opacity:1}.trae-browser-inspect-virtual-cursor.trae-browser-inspect-cursor-idle{animation:trae-browser-inspect-cursor-breathe 2s ease-in-out infinite}.trae-browser-inspect-virtual-cursor svg{width:20px;height:20px;filter:drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))}@keyframes trae-browser-inspect-cursor-breathe{0%,100%{opacity:.7}50%{opacity:1}}.trae-browser-inspect-scroll-indicator{position:fixed;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:8px;background-color:rgba(0,0,0,.7);color:#fff;font-size:13px;font-weight:500;pointer-events:none;z-index:999999;animation:trae-browser-inspect-indicator-fade 800ms ease-out forwards;backdrop-filter:blur(4px)}.trae-browser-inspect-scroll-indicator svg{width:16px;height:16px;fill:#fff}.trae-browser-inspect-scroll-indicator.trae-scroll-up{top:12px;left:50%;transform:translateX(-50%)}.trae-browser-inspect-scroll-indicator.trae-scroll-down{bottom:12px;left:50%;transform:translateX(-50%)}.trae-browser-inspect-scroll-indicator.trae-scroll-left{left:12px;top:50%;transform:translateY(-50%)}.trae-browser-inspect-scroll-indicator.trae-scroll-right{right:12px;top:50%;transform:translateY(-50%)}@keyframes trae-browser-inspect-indicator-fade{0%{opacity:0;transform:translateX(-50%) scale(0.9)}15%{opacity:1;transform:translateX(-50%) scale(1)}85%{opacity:1}100%{opacity:0}}.trae-browser-inspect-scroll-indicator.trae-scroll-left,.trae-browser-inspect-scroll-indicator.trae-scroll-right{animation-name:trae-browser-inspect-indicator-fade-y}@keyframes trae-browser-inspect-indicator-fade-y{0%{opacity:0;transform:translateY(-50%) scale(0.9)}15%{opacity:1;transform:translateY(-50%) scale(1)}85%{opacity:1}100%{opacity:0}}.trae-browser-inspect-key-badge{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);padding:8px 20px;border-radius:8px;background-color:rgba(0,0,0,.8);color:#fff;font-size:18px;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,monospace;pointer-events:none;z-index:999999;animation:trae-browser-inspect-key-pop 500ms ease-out forwards;backdrop-filter:blur(4px);border:1px solid hsla(0,0%,100%,.15);box-shadow:0 4px 12px rgba(0,0,0,.3);letter-spacing:1px}@keyframes trae-browser-inspect-key-pop{0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(0.9)}20%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}80%{opacity:1}100%{opacity:0;transform:translateX(-50%) translateY(-10px)}}.trae-browser-inspect-step-badge{position:fixed;top:12px;left:12px;padding:6px 12px;border-radius:6px;background-color:var(--vscode-icube-colorSuccessHover, #2FB287);color:#fff;font-size:12px;font-weight:600;pointer-events:none;z-index:999999;animation:trae-browser-inspect-step-slide 600ms ease-out forwards;box-shadow:0 2px 8px rgba(47,178,135,.3);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.trae-browser-inspect-step-badge.trae-step-old{opacity:.4;transform:translateY(0)}@keyframes trae-browser-inspect-step-slide{0%{opacity:0;transform:translateX(-20px)}20%{opacity:1;transform:translateX(0)}100%{opacity:1;transform:translateX(0)}}.trae-browser-inspect-drag-trail{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999998}.trae-browser-inspect-drag-trail svg{width:100%;height:100%}.trae-browser-inspect-drag-trail .trae-drag-path{fill:none;stroke:var(--vscode-icube-colorSuccessHover, #2FB287);stroke-width:2;stroke-dasharray:8 4;opacity:.6;animation:trae-browser-inspect-dash 600ms linear forwards}.trae-browser-inspect-drag-trail .trae-drag-dot{fill:var(--vscode-icube-colorSuccessHover, #2FB287);filter:drop-shadow(0 0 4px rgba(47, 178, 135, 0.6))}.trae-browser-inspect-drag-trail .trae-drag-endpoint{fill:none;stroke:var(--vscode-icube-colorSuccessHover, #2FB287);stroke-width:2;opacity:.5}@keyframes trae-browser-inspect-dash{0%{stroke-dashoffset:200}100%{stroke-dashoffset:0}}.trae-browser-inspect-drag-trail.trae-drag-fade{animation:trae-browser-inspect-trail-fade 400ms ease-out forwards}@keyframes trae-browser-inspect-trail-fade{0%{opacity:1}100%{opacity:0}}</style><script type="module">(async () => {
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785130616631']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785135984126']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -1067,7 +1090,7 @@
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785130616637']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785135984132']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -3124,12 +3147,15 @@
     <div class="filters">
       <div class="filter-group" id="filter-bodypart">
         <span class="chip active" data-val="all">全部部位</span>
-        <span class="chip" data-val="胸部">胸部</span>
-        <span class="chip" data-val="背部">背部</span>
-        <span class="chip" data-val="上臂">上臂</span>
-        <span class="chip" data-val="腿部">腿部</span>
-        <span class="chip" data-val="肩部">肩部</span>
-        <span class="chip" data-val="腰部">核心</span>
+        <span class="chip" data-val="chest">胸部</span>
+        <span class="chip" data-val="back">背部</span>
+        <span class="chip" data-val="upper arms">上臂</span>
+        <span class="chip" data-val="upper legs">腿部</span>
+        <span class="chip" data-val="shoulders">肩部</span>
+        <span class="chip" data-val="waist">核心</span>
+        <span class="chip" data-val="lower legs">小腿</span>
+        <span class="chip" data-val="lower arms">前臂</span>
+        <span class="chip" data-val="cardio">有氧</span>
         <span class="chip star-chip" id="fav-filter" data-val="favorites">⭐ 收藏</span>
       </div>
     </div>
@@ -3141,23 +3167,25 @@
         <span class="chip" data-val="barbell">杠铃</span>
         <span class="chip" data-val="cable">绳索</span>
         <span class="chip" data-val="kettlebell">壶铃</span>
+        <span class="chip" data-val="leverage machine">器械</span>
+        <span class="chip" data-val="band">弹力带</span>
+        <span class="chip" data-val="medicine ball">药球</span>
       </div>
     </div>
   </div>
   <div class="grid-section">
-    <div class="result-count" id="result-count">共 18 个动作</div>
+    <div class="result-count" id="result-count">共 1324 个动作</div>
     <div class="exercise-grid" id="exercise-grid">
     <div class="exercise-card" data-id="0001">
       <div class="card-media">
-        <div class="ex-anim anim-press"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="85" x2="80" y2="85"></line><rect class="anim-figure press-arm" x="40" y="30" width="20" height="6" rx="3"></rect><rect class="anim-weight" x="35" y="22" width="30" height="6" rx="2"></rect><circle class="anim-figure" cx="50" cy="50" r="10" fill="none"></circle><line class="anim-figure" x1="50" y1="60" x2="50" y2="82"></line><line class="anim-figure" x1="40" y1="82" x2="60" y2="82"></line></svg></div>
-        <span class="tag-top">中级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0001-2gPfomN.gif" alt="3/4 sit-up" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0001">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">杠铃卧推</div>
+        <div class="card-name">3/4 sit-up</div>
         <div class="card-meta">
-          <span class="meta-pill target">胸大肌</span>
-          <span class="meta-pill equipment">杠铃</span>
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">徒手</span>
         </div>
         <button class="add-btn " data-add="0001">
           + 加入计划
@@ -3167,15 +3195,14 @@
   
     <div class="exercise-card" data-id="0002">
       <div class="card-media">
-        <div class="ex-anim anim-squat"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"></line><g class="squat-body"><rect class="anim-figure" x="45" y="20" width="10" height="25" rx="5"></rect><circle class="anim-figure" cx="50" cy="18" r="7" fill="none"></circle><line class="anim-figure" x1="50" y1="45" x2="42" y2="70"></line><line class="anim-figure" x1="50" y1="45" x2="58" y2="70"></line><line class="anim-figure" x1="42" y1="70" x2="40" y2="88"></line><line class="anim-figure" x1="58" y1="70" x2="60" y2="88"></line></g></svg></div>
-        <span class="tag-top">中级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0002-Hy9D21L.gif" alt="45° side bend" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0002">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">杠铃深蹲</div>
+        <div class="card-name">45° side bend</div>
         <div class="card-meta">
-          <span class="meta-pill target">臀大肌</span>
-          <span class="meta-pill equipment">杠铃</span>
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">徒手</span>
         </div>
         <button class="add-btn " data-add="0002">
           + 加入计划
@@ -3185,15 +3212,14 @@
   
     <div class="exercise-card" data-id="0003">
       <div class="card-media">
-        <div class="ex-anim anim-squat"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"></line><g class="squat-body"><rect class="anim-figure" x="45" y="20" width="10" height="25" rx="5"></rect><circle class="anim-figure" cx="50" cy="18" r="7" fill="none"></circle><line class="anim-figure" x1="50" y1="45" x2="42" y2="70"></line><line class="anim-figure" x1="50" y1="45" x2="58" y2="70"></line><line class="anim-figure" x1="42" y1="70" x2="40" y2="88"></line><line class="anim-figure" x1="58" y1="70" x2="60" y2="88"></line></g></svg></div>
-        <span class="tag-top">高级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0003-1ZFqTDN.gif" alt="air bike" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0003">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">硬拉</div>
+        <div class="card-name">air bike</div>
         <div class="card-meta">
-          <span class="meta-pill target">臀大肌</span>
-          <span class="meta-pill equipment">杠铃</span>
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">徒手</span>
         </div>
         <button class="add-btn " data-add="0003">
           + 加入计划
@@ -3201,37 +3227,18 @@
       </div>
     </div>
   
-    <div class="exercise-card" data-id="0004">
+    <div class="exercise-card" data-id="1512">
       <div class="card-media">
-        <div class="ex-anim anim-curl"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="85" x2="80" y2="85"></line><circle class="anim-figure" cx="40" cy="40" r="8" fill="none"></circle><line class="anim-figure" x1="40" y1="48" x2="40" y2="75"></line><line class="anim-figure" x1="32" y1="75" x2="48" y2="75"></line><line class="anim-figure curl-forearm" x1="40" y1="55" x2="40" y2="72"></line><rect class="anim-weight" x="36" y="68" width="8" height="8" rx="2"></rect></svg></div>
-        <span class="tag-top">初级</span>
-        <button class="star-btn " data-star="0004">☆</button>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/1512-qBcKorM.gif" alt="all fours squad stretch" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="1512">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">哑铃弯举</div>
+        <div class="card-name">all fours squad stretch</div>
         <div class="card-meta">
-          <span class="meta-pill target">肱二头肌</span>
-          <span class="meta-pill equipment">哑铃</span>
-        </div>
-        <button class="add-btn " data-add="0004">
-          + 加入计划
-        </button>
-      </div>
-    </div>
-  
-    <div class="exercise-card" data-id="0005">
-      <div class="card-media">
-        <div class="ex-anim anim-pull"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="25" y1="15" x2="75" y2="15"></line><g class="pull-body"><circle class="anim-figure" cx="50" cy="40" r="8" fill="none"></circle><line class="anim-figure" x1="50" y1="48" x2="50" y2="75"></line><line class="anim-figure" x1="42" y1="75" x2="58" y2="75"></line><line class="anim-figure" x1="44" y1="20" x2="44" y2="48"></line><line class="anim-figure" x1="56" y1="20" x2="56" y2="48"></line></g></svg></div>
-        <span class="tag-top">中级</span>
-        <button class="star-btn " data-star="0005">☆</button>
-      </div>
-      <div class="card-body">
-        <div class="card-name">引体向上</div>
-        <div class="card-meta">
-          <span class="meta-pill target">背阔肌</span>
+          <span class="meta-pill target">quads</span>
           <span class="meta-pill equipment">徒手</span>
         </div>
-        <button class="add-btn " data-add="0005">
+        <button class="add-btn " data-add="1512">
           + 加入计划
         </button>
       </div>
@@ -3239,14 +3246,13 @@
   
     <div class="exercise-card" data-id="0006">
       <div class="card-media">
-        <div class="ex-anim anim-press"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="85" x2="80" y2="85"></line><rect class="anim-figure press-arm" x="40" y="30" width="20" height="6" rx="3"></rect><rect class="anim-weight" x="35" y="22" width="30" height="6" rx="2"></rect><circle class="anim-figure" cx="50" cy="50" r="10" fill="none"></circle><line class="anim-figure" x1="50" y1="60" x2="50" y2="82"></line><line class="anim-figure" x1="40" y1="82" x2="60" y2="82"></line></svg></div>
-        <span class="tag-top">初级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0006-qaZVsGk.gif" alt="alternate heel touchers" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0006">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">俯卧撑</div>
+        <div class="card-name">alternate heel touchers</div>
         <div class="card-meta">
-          <span class="meta-pill target">胸大肌</span>
+          <span class="meta-pill target">腹直肌</span>
           <span class="meta-pill equipment">徒手</span>
         </div>
         <button class="add-btn " data-add="0006">
@@ -3257,15 +3263,14 @@
   
     <div class="exercise-card" data-id="0007">
       <div class="card-media">
-        <div class="ex-anim anim-press"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="85" x2="80" y2="85"></line><rect class="anim-figure press-arm" x="40" y="30" width="20" height="6" rx="3"></rect><rect class="anim-weight" x="35" y="22" width="30" height="6" rx="2"></rect><circle class="anim-figure" cx="50" cy="50" r="10" fill="none"></circle><line class="anim-figure" x1="50" y1="60" x2="50" y2="82"></line><line class="anim-figure" x1="40" y1="82" x2="60" y2="82"></line></svg></div>
-        <span class="tag-top">中级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0007-4IKbhHV.gif" alt="alternate lateral pulldown" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0007">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">哑铃肩推</div>
+        <div class="card-name">alternate lateral pulldown</div>
         <div class="card-meta">
-          <span class="meta-pill target">三角肌</span>
-          <span class="meta-pill equipment">哑铃</span>
+          <span class="meta-pill target">背阔肌</span>
+          <span class="meta-pill equipment">绳索</span>
         </div>
         <button class="add-btn " data-add="0007">
           + 加入计划
@@ -3273,19 +3278,120 @@
       </div>
     </div>
   
-    <div class="exercise-card" data-id="0008">
+    <div class="exercise-card" data-id="1368">
       <div class="card-media">
-        <div class="ex-anim anim-swing"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="88" x2="80" y2="88"></line><circle class="anim-figure" cx="50" cy="35" r="8" fill="none"></circle><line class="anim-figure" x1="50" y1="43" x2="50" y2="70"></line><line class="anim-figure" x1="42" y1="70" x2="58" y2="70"></line><g class="swing-weight"><line class="anim-figure" x1="50" y1="55" x2="50" y2="75"></line><rect class="anim-weight" x="45" y="73" width="10" height="10" rx="3"></rect></g></svg></div>
-        <span class="tag-top">中级</span>
-        <button class="star-btn " data-star="0008">☆</button>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/1368-uL9CsKm.gif" alt="ankle circles" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="1368">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">壶铃摇摆</div>
+        <div class="card-name">ankle circles</div>
+        <div class="card-meta">
+          <span class="meta-pill target">小腿</span>
+          <span class="meta-pill equipment">徒手</span>
+        </div>
+        <button class="add-btn " data-add="1368">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
+    <div class="exercise-card" data-id="3293">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/3293-72BC5Za.gif" alt="archer pull up" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="3293">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">archer pull up</div>
+        <div class="card-meta">
+          <span class="meta-pill target">背阔肌</span>
+          <span class="meta-pill equipment">徒手</span>
+        </div>
+        <button class="add-btn " data-add="3293">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
+    <div class="exercise-card" data-id="3294">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/3294-A9qxk2F.gif" alt="archer push up" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="3294">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">archer push up</div>
+        <div class="card-meta">
+          <span class="meta-pill target">胸大肌</span>
+          <span class="meta-pill equipment">徒手</span>
+        </div>
+        <button class="add-btn " data-add="3294">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
+    <div class="exercise-card" data-id="2355">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/2355-uWpxD4v.gif" alt="arm slingers hanging bent knee legs" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="2355">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">arm slingers hanging bent knee legs</div>
+        <div class="card-meta">
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">徒手</span>
+        </div>
+        <button class="add-btn " data-add="2355">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
+    <div class="exercise-card" data-id="2333">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/2333-PXTIwgu.gif" alt="arm slingers hanging straight legs" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="2333">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">arm slingers hanging straight legs</div>
+        <div class="card-meta">
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">徒手</span>
+        </div>
+        <button class="add-btn " data-add="2333">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
+    <div class="exercise-card" data-id="3214">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/3214-RtyAsy1.gif" alt="arms apart circular toe touch (male)" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="3214">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">arms apart circular toe touch (male)</div>
         <div class="card-meta">
           <span class="meta-pill target">臀大肌</span>
-          <span class="meta-pill equipment">壶铃</span>
+          <span class="meta-pill equipment">徒手</span>
         </div>
-        <button class="add-btn " data-add="0008">
+        <button class="add-btn " data-add="3214">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
+    <div class="exercise-card" data-id="3204">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/3204-NAkmgdx.gif" alt="arms overhead full sit-up (male)" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="3204">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">arms overhead full sit-up (male)</div>
+        <div class="card-meta">
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">徒手</span>
+        </div>
+        <button class="add-btn " data-add="3204">
           + 加入计划
         </button>
       </div>
@@ -3293,15 +3399,14 @@
   
     <div class="exercise-card" data-id="0009">
       <div class="card-media">
-        <div class="ex-anim anim-pull"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="25" y1="15" x2="75" y2="15"></line><g class="pull-body"><circle class="anim-figure" cx="50" cy="40" r="8" fill="none"></circle><line class="anim-figure" x1="50" y1="48" x2="50" y2="75"></line><line class="anim-figure" x1="42" y1="75" x2="58" y2="75"></line><line class="anim-figure" x1="44" y1="20" x2="44" y2="48"></line><line class="anim-figure" x1="56" y1="20" x2="56" y2="48"></line></g></svg></div>
-        <span class="tag-top">初级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0009-PAgTVaK.gif" alt="assisted chest dip (kneeling)" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0009">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">绳索下拉</div>
+        <div class="card-name">assisted chest dip (kneeling)</div>
         <div class="card-meta">
-          <span class="meta-pill target">背阔肌</span>
-          <span class="meta-pill equipment">绳索</span>
+          <span class="meta-pill target">胸大肌</span>
+          <span class="meta-pill equipment">器械</span>
         </div>
         <button class="add-btn " data-add="0009">
           + 加入计划
@@ -3309,35 +3414,16 @@
       </div>
     </div>
   
-    <div class="exercise-card" data-id="0010">
-      <div class="card-media">
-        <div class="ex-anim anim-static"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="15" y1="88" x2="85" y2="88"></line><circle class="anim-figure" cx="50" cy="30" r="8" fill="none"></circle><line class="anim-figure" x1="50" y1="38" x2="50" y2="55"></line><line class="anim-figure" x1="35" y1="55" x2="65" y2="55"></line><line class="anim-figure" x1="38" y1="55" x2="38" y2="72"></line><line class="anim-figure" x1="62" y1="55" x2="62" y2="72"></line><line class="anim-figure" x1="35" y1="72" x2="30" y2="88"></line><line class="anim-figure" x1="65" y1="72" x2="70" y2="88"></line></svg></div>
-        <span class="tag-top">初级</span>
-        <button class="star-btn " data-star="0010">☆</button>
-      </div>
-      <div class="card-body">
-        <div class="card-name">平板支撑</div>
-        <div class="card-meta">
-          <span class="meta-pill target">腹直肌</span>
-          <span class="meta-pill equipment">徒手</span>
-        </div>
-        <button class="add-btn " data-add="0010">
-          + 加入计划
-        </button>
-      </div>
-    </div>
-  
     <div class="exercise-card" data-id="0011">
       <div class="card-media">
-        <div class="ex-anim anim-raise"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"></line><circle class="anim-figure" cx="50" cy="40" r="8" fill="none"></circle><line class="anim-figure" x1="50" y1="48" x2="50" y2="78"></line><line class="anim-figure" x1="42" y1="78" x2="58" y2="78"></line><line class="anim-figure raise-arm-l" x1="50" y1="48" x2="50" y2="70"></line><rect class="anim-weight" x="46" y="66" width="8" height="6" rx="2"></rect></svg></div>
-        <span class="tag-top">初级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0011-03lzqwk.gif" alt="assisted hanging knee raise" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0011">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">哑铃飞鸟</div>
+        <div class="card-name">assisted hanging knee raise</div>
         <div class="card-meta">
-          <span class="meta-pill target">胸大肌</span>
-          <span class="meta-pill equipment">哑铃</span>
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">辅助</span>
         </div>
         <button class="add-btn " data-add="0011">
           + 加入计划
@@ -3345,17 +3431,84 @@
       </div>
     </div>
   
+    <div class="exercise-card" data-id="0010">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0010-8K0w2yA.gif" alt="assisted hanging knee raise with throw down" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="0010">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">assisted hanging knee raise with throw down</div>
+        <div class="card-meta">
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">辅助</span>
+        </div>
+        <button class="add-btn " data-add="0010">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
+    <div class="exercise-card" data-id="1708">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/1708-GxDwDX0.gif" alt="assisted lying calves stretch" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="1708">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">assisted lying calves stretch</div>
+        <div class="card-meta">
+          <span class="meta-pill target">小腿</span>
+          <span class="meta-pill equipment">辅助</span>
+        </div>
+        <button class="add-btn " data-add="1708">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
+    <div class="exercise-card" data-id="1709">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/1709-yn0LjwL.gif" alt="assisted lying glutes stretch" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="1709">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">assisted lying glutes stretch</div>
+        <div class="card-meta">
+          <span class="meta-pill target">臀大肌</span>
+          <span class="meta-pill equipment">辅助</span>
+        </div>
+        <button class="add-btn " data-add="1709">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
+    <div class="exercise-card" data-id="1710">
+      <div class="card-media">
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/1710-RQNVT10.gif" alt="assisted lying gluteus and piriformis stretch" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
+        <button class="star-btn " data-star="1710">☆</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">assisted lying gluteus and piriformis stretch</div>
+        <div class="card-meta">
+          <span class="meta-pill target">臀大肌</span>
+          <span class="meta-pill equipment">辅助</span>
+        </div>
+        <button class="add-btn " data-add="1710">
+          + 加入计划
+        </button>
+      </div>
+    </div>
+  
     <div class="exercise-card" data-id="0012">
       <div class="card-media">
-        <div class="ex-anim anim-curl"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="85" x2="80" y2="85"></line><circle class="anim-figure" cx="40" cy="40" r="8" fill="none"></circle><line class="anim-figure" x1="40" y1="48" x2="40" y2="75"></line><line class="anim-figure" x1="32" y1="75" x2="48" y2="75"></line><line class="anim-figure curl-forearm" x1="40" y1="55" x2="40" y2="72"></line><rect class="anim-weight" x="36" y="68" width="8" height="8" rx="2"></rect></svg></div>
-        <span class="tag-top">中级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0012-UGhRD1A.gif" alt="assisted lying leg raise with lateral throw down" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0012">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">杠铃划船</div>
+        <div class="card-name">assisted lying leg raise with lateral throw down</div>
         <div class="card-meta">
-          <span class="meta-pill target">背阔肌</span>
-          <span class="meta-pill equipment">杠铃</span>
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">辅助</span>
         </div>
         <button class="add-btn " data-add="0012">
           + 加入计划
@@ -3365,15 +3518,14 @@
   
     <div class="exercise-card" data-id="0013">
       <div class="card-media">
-        <div class="ex-anim anim-squat"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"></line><g class="squat-body"><rect class="anim-figure" x="45" y="20" width="10" height="25" rx="5"></rect><circle class="anim-figure" cx="50" cy="18" r="7" fill="none"></circle><line class="anim-figure" x1="50" y1="45" x2="42" y2="70"></line><line class="anim-figure" x1="50" y1="45" x2="58" y2="70"></line><line class="anim-figure" x1="42" y1="70" x2="40" y2="88"></line><line class="anim-figure" x1="58" y1="70" x2="60" y2="88"></line></g></svg></div>
-        <span class="tag-top">中级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0013-VX5YKR5.gif" alt="assisted lying leg raise with throw down" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0013">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">保加利亚分腿蹲</div>
+        <div class="card-name">assisted lying leg raise with throw down</div>
         <div class="card-meta">
-          <span class="meta-pill target">股四头肌</span>
-          <span class="meta-pill equipment">哑铃</span>
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">辅助</span>
         </div>
         <button class="add-btn " data-add="0013">
           + 加入计划
@@ -3383,15 +3535,14 @@
   
     <div class="exercise-card" data-id="0014">
       <div class="card-media">
-        <div class="ex-anim anim-pushdown"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"></line><circle class="anim-figure" cx="50" cy="40" r="8" fill="none"></circle><line class="anim-figure" x1="50" y1="48" x2="50" y2="78"></line><line class="anim-figure" x1="42" y1="78" x2="58" y2="78"></line><line class="anim-figure" x1="50" y1="48" x2="50" y2="55"></line><line class="anim-figure push-forearm" x1="50" y1="55" x2="50" y2="75"></line><rect class="anim-weight" x="44" y="73" width="12" height="5" rx="2"></rect></svg></div>
-        <span class="tag-top">初级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0014-r7cT9YD.gif" alt="assisted motion russian twist" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0014">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">绳索三头下压</div>
+        <div class="card-name">assisted motion russian twist</div>
         <div class="card-meta">
-          <span class="meta-pill target">肱三头肌</span>
-          <span class="meta-pill equipment">绳索</span>
+          <span class="meta-pill target">腹直肌</span>
+          <span class="meta-pill equipment">药球</span>
         </div>
         <button class="add-btn " data-add="0014">
           + 加入计划
@@ -3401,15 +3552,14 @@
   
     <div class="exercise-card" data-id="0015">
       <div class="card-media">
-        <div class="ex-anim anim-raise"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"></line><circle class="anim-figure" cx="50" cy="40" r="8" fill="none"></circle><line class="anim-figure" x1="50" y1="48" x2="50" y2="78"></line><line class="anim-figure" x1="42" y1="78" x2="58" y2="78"></line><line class="anim-figure raise-arm-l" x1="50" y1="48" x2="50" y2="70"></line><rect class="anim-weight" x="46" y="66" width="8" height="6" rx="2"></rect></svg></div>
-        <span class="tag-top">初级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0015-vrhHa6D.gif" alt="assisted parallel close grip pull-up" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0015">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">侧平举</div>
+        <div class="card-name">assisted parallel close grip pull-up</div>
         <div class="card-meta">
-          <span class="meta-pill target">三角肌中束</span>
-          <span class="meta-pill equipment">哑铃</span>
+          <span class="meta-pill target">背阔肌</span>
+          <span class="meta-pill equipment">器械</span>
         </div>
         <button class="add-btn " data-add="0015">
           + 加入计划
@@ -3419,58 +3569,21 @@
   
     <div class="exercise-card" data-id="0016">
       <div class="card-media">
-        <div class="ex-anim anim-twist"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="88" x2="80" y2="88"></line><g class="twist-body"><circle class="anim-figure" cx="50" cy="35" r="8" fill="none"></circle><line class="anim-figure" x1="50" y1="43" x2="50" y2="55"></line><line class="anim-figure" x1="35" y1="55" x2="65" y2="55"></line><line class="anim-figure" x1="45" y1="55" x2="45" y2="75"></line><line class="anim-figure" x1="55" y1="55" x2="55" y2="75"></line></g></svg></div>
-        <span class="tag-top">初级</span>
+        <div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/videos/0016-VedGSby.gif" alt="assisted prone hamstring" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('img-error')"></div>
         <button class="star-btn " data-star="0016">☆</button>
       </div>
       <div class="card-body">
-        <div class="card-name">俄罗斯转体</div>
+        <div class="card-name">assisted prone hamstring</div>
         <div class="card-meta">
-          <span class="meta-pill target">腹斜肌</span>
-          <span class="meta-pill equipment">徒手</span>
+          <span class="meta-pill target">腘绳肌</span>
+          <span class="meta-pill equipment">辅助</span>
         </div>
         <button class="add-btn " data-add="0016">
           + 加入计划
         </button>
       </div>
     </div>
-  
-    <div class="exercise-card" data-id="0017">
-      <div class="card-media">
-        <div class="ex-anim anim-extend"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"></line><circle class="anim-figure" cx="50" cy="35" r="8" fill="none"></circle><line class="anim-figure" x1="50" y1="43" x2="50" y2="78"></line><line class="anim-figure" x1="42" y1="78" x2="58" y2="78"></line><line class="anim-figure extend-forearm" x1="50" y1="35" x2="50" y2="15"></line><rect class="anim-weight" x="45" y="10" width="10" height="6" rx="2"></rect></svg></div>
-        <span class="tag-top">初级</span>
-        <button class="star-btn " data-star="0017">☆</button>
-      </div>
-      <div class="card-body">
-        <div class="card-name">哑铃臂屈伸</div>
-        <div class="card-meta">
-          <span class="meta-pill target">肱三头肌</span>
-          <span class="meta-pill equipment">哑铃</span>
-        </div>
-        <button class="add-btn " data-add="0017">
-          + 加入计划
-        </button>
-      </div>
-    </div>
-  
-    <div class="exercise-card" data-id="0018">
-      <div class="card-media">
-        <div class="ex-anim anim-legcurl"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="50" x2="80" y2="50"></line><circle class="anim-figure" cx="30" cy="35" r="7" fill="none"></circle><line class="anim-figure" x1="37" y1="35" x2="55" y2="35"></line><line class="anim-figure" x1="55" y1="30" x2="55" y2="50"></line><g class="leg-lower"><line class="anim-figure" x1="55" y1="50" x2="75" y2="50"></line><circle class="anim-weight" cx="75" cy="48" r="4"></circle></g></svg></div>
-        <span class="tag-top">初级</span>
-        <button class="star-btn " data-star="0018">☆</button>
-      </div>
-      <div class="card-body">
-        <div class="card-name">腿弯举</div>
-        <div class="card-meta">
-          <span class="meta-pill target">腘绳肌</span>
-          <span class="meta-pill equipment">徒手</span>
-        </div>
-        <button class="add-btn " data-add="0018">
-          + 加入计划
-        </button>
-      </div>
-    </div>
-  </div>
+  <div class="load-more-wrap" id="load-more-wrap"><button class="load-more-btn" id="load-more-btn">加载更多（剩余 1300 个）</button></div></div>
   </div>
 </div>
 
@@ -3578,69 +3691,129 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ===== Animation SVG generator =====
-function getAnimSVG(type) {
-  const svgs = {
-    press: `<div class="ex-anim anim-press"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="85" x2="80" y2="85"/><rect class="anim-figure press-arm" x="40" y="30" width="20" height="6" rx="3"/><rect class="anim-weight" x="35" y="22" width="30" height="6" rx="2"/><circle class="anim-figure" cx="50" cy="50" r="10" fill="none"/><line class="anim-figure" x1="50" y1="60" x2="50" y2="82"/><line class="anim-figure" x1="40" y1="82" x2="60" y2="82"/></svg></div>`,
-    curl: `<div class="ex-anim anim-curl"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="85" x2="80" y2="85"/><circle class="anim-figure" cx="40" cy="40" r="8" fill="none"/><line class="anim-figure" x1="40" y1="48" x2="40" y2="75"/><line class="anim-figure" x1="32" y1="75" x2="48" y2="75"/><line class="anim-figure curl-forearm" x1="40" y1="55" x2="40" y2="72"/><rect class="anim-weight" x="36" y="68" width="8" height="8" rx="2"/></svg></div>`,
-    squat: `<div class="ex-anim anim-squat"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"/><g class="squat-body"><rect class="anim-figure" x="45" y="20" width="10" height="25" rx="5"/><circle class="anim-figure" cx="50" cy="18" r="7" fill="none"/><line class="anim-figure" x1="50" y1="45" x2="42" y2="70"/><line class="anim-figure" x1="50" y1="45" x2="58" y2="70"/><line class="anim-figure" x1="42" y1="70" x2="40" y2="88"/><line class="anim-figure" x1="58" y1="70" x2="60" y2="88"/></g></svg></div>`,
-    pull: `<div class="ex-anim anim-pull"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="25" y1="15" x2="75" y2="15"/><g class="pull-body"><circle class="anim-figure" cx="50" cy="40" r="8" fill="none"/><line class="anim-figure" x1="50" y1="48" x2="50" y2="75"/><line class="anim-figure" x1="42" y1="75" x2="58" y2="75"/><line class="anim-figure" x1="44" y1="20" x2="44" y2="48"/><line class="anim-figure" x1="56" y1="20" x2="56" y2="48"/></g></svg></div>`,
-    raise: `<div class="ex-anim anim-raise"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"/><circle class="anim-figure" cx="50" cy="40" r="8" fill="none"/><line class="anim-figure" x1="50" y1="48" x2="50" y2="78"/><line class="anim-figure" x1="42" y1="78" x2="58" y2="78"/><line class="anim-figure raise-arm-l" x1="50" y1="48" x2="50" y2="70"/><rect class="anim-weight" x="46" y="66" width="8" height="6" rx="2"/></svg></div>`,
-    swing: `<div class="ex-anim anim-swing"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="88" x2="80" y2="88"/><circle class="anim-figure" cx="50" cy="35" r="8" fill="none"/><line class="anim-figure" x1="50" y1="43" x2="50" y2="70"/><line class="anim-figure" x1="42" y1="70" x2="58" y2="70"/><g class="swing-weight"><line class="anim-figure" x1="50" y1="55" x2="50" y2="75"/><rect class="anim-weight" x="45" y="73" width="10" height="10" rx="3"/></g></svg></div>`,
-    twist: `<div class="ex-anim anim-twist"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="88" x2="80" y2="88"/><g class="twist-body"><circle class="anim-figure" cx="50" cy="35" r="8" fill="none"/><line class="anim-figure" x1="50" y1="43" x2="50" y2="55"/><line class="anim-figure" x1="35" y1="55" x2="65" y2="55"/><line class="anim-figure" x1="45" y1="55" x2="45" y2="75"/><line class="anim-figure" x1="55" y1="55" x2="55" y2="75"/></g></svg></div>`,
-    extend: `<div class="ex-anim anim-extend"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"/><circle class="anim-figure" cx="50" cy="35" r="8" fill="none"/><line class="anim-figure" x1="50" y1="43" x2="50" y2="78"/><line class="anim-figure" x1="42" y1="78" x2="58" y2="78"/><line class="anim-figure extend-forearm" x1="50" y1="35" x2="50" y2="15"/><rect class="anim-weight" x="45" y="10" width="10" height="6" rx="2"/></svg></div>`,
-    pushdown: `<div class="ex-anim anim-pushdown"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="90" x2="80" y2="90"/><circle class="anim-figure" cx="50" cy="40" r="8" fill="none"/><line class="anim-figure" x1="50" y1="48" x2="50" y2="78"/><line class="anim-figure" x1="42" y1="78" x2="58" y2="78"/><line class="anim-figure" x1="50" y1="48" x2="50" y2="55"/><line class="anim-figure push-forearm" x1="50" y1="55" x2="50" y2="75"/><rect class="anim-weight" x="44" y="73" width="12" height="5" rx="2"/></svg></div>`,
-    static: `<div class="ex-anim anim-static"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="15" y1="88" x2="85" y2="88"/><circle class="anim-figure" cx="50" cy="30" r="8" fill="none"/><line class="anim-figure" x1="50" y1="38" x2="50" y2="55"/><line class="anim-figure" x1="35" y1="55" x2="65" y2="55"/><line class="anim-figure" x1="38" y1="55" x2="38" y2="72"/><line class="anim-figure" x1="62" y1="55" x2="62" y2="72"/><line class="anim-figure" x1="35" y1="72" x2="30" y2="88"/><line class="anim-figure" x1="65" y1="72" x2="70" y2="88"/></svg></div>`,
-    legcurl: `<div class="ex-anim anim-legcurl"><svg viewBox="0 0 100 100"><line class="anim-ground" x1="20" y1="50" x2="80" y2="50"/><circle class="anim-figure" cx="30" cy="35" r="7" fill="none"/><line class="anim-figure" x1="37" y1="35" x2="55" y2="35"/><line class="anim-figure" x1="55" y1="30" x2="55" y2="50"/><g class="leg-lower"><line class="anim-figure" x1="55" y1="50" x2="75" y2="50"/><circle class="anim-weight" cx="75" cy="48" r="4"/></g></svg></div>`,
-  };
-  return svgs[type] || svgs.press;
+// ===== Open-Source Exercise Dataset (anderboski/exercises-dataset) =====
+const EXERCISES_CDN = 'https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/data/exercises.json';
+const ASSETS_CDN = 'https://cdn.jsdelivr.net/gh/anderboski/exercises-dataset@main/';
+
+// Category labels (English dataset value -> Chinese display)
+const CATEGORY_LABELS = {
+  'upper arms':'上臂','upper legs':'腿部','back':'背部','waist':'核心',
+  'chest':'胸部','shoulders':'肩部','lower legs':'小腿','lower arms':'前臂',
+  'cardio':'有氧','neck':'颈部',
+};
+function getCategoryLabel(c){ return CATEGORY_LABELS[c] || c; }
+
+// Equipment labels
+const EQUIPMENT_LABELS = {
+  'body weight':'徒手','dumbbell':'哑铃','barbell':'杠铃','cable':'绳索',
+  'kettlebell':'壶铃','leverage machine':'器械','band':'弹力带',
+  'smith machine':'史密斯','weighted':'负重','stability ball':'稳定球',
+  'ez barbell':'EZ杆','assisted':'辅助','sled machine':'雪橇机',
+  'medicine ball':'药球','rope':'绳索','roller':'滚轮',
+  'resistance band':'阻力带','bosu ball':'半球','olympic barbell':'奥运杠铃',
+  'wheel roller':'滚轮','upper body ergometer':'上肢测功计',
+  'skierg machine':'滑雪机','hammer':'锤式','stationary bike':'动感单车',
+  'tire':'轮胎','trap bar':'六角杠铃','elliptical machine':'椭圆机',
+  'stepmill machine':'楼梯机','other':'其他',
+};
+function getEquipmentLabel(e){ return EQUIPMENT_LABELS[e] || e; }
+
+// Target/muscle labels
+const TARGET_LABELS = {
+  'abs':'腹直肌','biceps':'肱二头肌','triceps':'肱三头肌','lats':'背阔肌',
+  'glutes':'臀大肌','quadriceps':'股四头肌','hamstrings':'腘绳肌',
+  'deltoids':'三角肌','pectorals':'胸大肌','pectoralis major':'胸大肌',
+  'obliques':'腹斜肌','calves':'小腿','forearms':'前臂','traps':'斜方肌',
+  'abdominals':'腹部','serratus anterior':'前锯肌','adductors':'内收肌',
+  'abductors':'外展肌','lower back':'下背部','middle back':'中背部',
+  'upper back':'上背部','neck':'颈部','shoulders':'肩部','chest':'胸部',
+  'gluteus maximus':'臀大肌','hip flexors':'髋屈肌','core':'核心',
+};
+function getTargetLabel(t){ return TARGET_LABELS[t] || t; }
+
+// Detect static/hold exercises (plank, hold, hang, etc.)
+function isHoldExercise(name) {
+  return /plank|\bhold\b|hang|bridge|wall sit|hollow|static|superman hold|l-sit|lsit/i.test(name);
 }
 
-// ===== Mock Exercise Data =====
-const exercises = [
-  { id:"0001", name:"杠铃卧推", nameEn:"Barbell Bench Press", category:"胸部", bodyPart:"chest", equipment:"barbell", equipmentLabel:"杠铃", target:"pectoralis major", targetLabel:"胸大肌", animType:"press", difficulty:"intermediate", difficultyLabel:"中级", muscleGroup:"triceps", secondaryMuscles:["肱三头肌","前三角肌"], instructions:["仰卧在平坦的卧推凳上，双脚踩实地面，臀部和上背贴紧凳面。","双手正握杠铃，握距略宽于肩，将杠铃从架子上取下，手臂伸直锁定。","控制呼吸，缓慢将杠铃下放至胸部中央，肘部与身体呈约45度角。","在胸部短暂停顿后，用力推起杠铃至起始位置，全程保持肩胛骨收紧。","完成目标次数后，将杠铃小心放回架子。建议3-4组，每组8-12次。"] },
-  { id:"0002", name:"杠铃深蹲", nameEn:"Barbell Full Squat", category:"腿部", bodyPart:"upper legs", equipment:"barbell", equipmentLabel:"杠铃", target:"glutes", targetLabel:"臀大肌", animType:"squat", difficulty:"intermediate", difficultyLabel:"中级", muscleGroup:"quadriceps", secondaryMuscles:["股四头肌","腘绳肌","小腿"], instructions:["将杠铃放在上斜方肌上，双脚与肩同宽或略宽。","脚尖微微外展约15-30度，核心收紧，挺胸抬头，脊柱保持中立位。","屈髋屈膝同时下蹲，像要坐到椅子上一样，膝盖方向与脚尖一致。","下蹲至大腿前侧低于水平面以最大化臀部和大腿后侧激活。","通过全脚掌发力站起，回到起始位置。建议3-5组，每组5-10次。"] },
-  { id:"0003", name:"硬拉", nameEn:"Barbell Deadlift", category:"背部", bodyPart:"back", equipment:"barbell", equipmentLabel:"杠铃", target:"glutes", targetLabel:"臀大肌", animType:"squat", difficulty:"advanced", difficultyLabel:"高级", muscleGroup:"hamstrings", secondaryMuscles:["腘绳肌","下背部","斜方肌"], instructions:["杠铃放在脚掌正上方，双脚与髋同宽，脚尖微外展。","屈髋向后，双手正握杠铃，握距略宽于小腿。","挺胸收肩，脊柱保持中立，核心绷紧。","脚踩地面发力，将杠铃沿着小腿和大腿贴身上提。","顶端锁定时臀部夹紧、髋部完全伸展。建议3-5组，每组3-6次。"] },
-  { id:"0004", name:"哑铃弯举", nameEn:"Dumbbell Biceps Curl", category:"上臂", bodyPart:"upper arms", equipment:"dumbbell", equipmentLabel:"哑铃", target:"biceps", targetLabel:"肱二头肌", animType:"curl", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"biceps", secondaryMuscles:["前臂"], instructions:["站立或坐在凳子上，双手各持一只哑铃，手臂自然下垂。","保持上臂固定不动，收紧核心，不要借助身体晃动。","弯曲肘部，将哑铃向上卷起至肩部前方，顶峰时主动收缩。","缓慢控制下放至起始位置，全程感受二头肌的拉伸。","可交替或同时进行。建议3-4组，每组10-15次。"] },
-  { id:"0005", name:"引体向上", nameEn:"Pull-up", category:"背部", bodyPart:"back", equipment:"body weight", equipmentLabel:"徒手", target:"lats", targetLabel:"背阔肌", animType:"pull", difficulty:"intermediate", difficultyLabel:"中级", muscleGroup:"lats", secondaryMuscles:["肱二头肌","菱形肌","下背部"], instructions:["双手正握单杠，握距略宽于肩，身体自然悬垂。","核心收紧，身体微微后倾，避免用惯性摆动。","发力拉起身体，想象用肘部向下拉，将胸部拉向单杠。","顶峰时下巴超过单杠，背部肌肉充分收缩。","控制下放至手臂完全伸展。建议3-4组，每组力竭。"] },
-  { id:"0006", name:"俯卧撑", nameEn:"Push-up", category:"胸部", bodyPart:"chest", equipment:"body weight", equipmentLabel:"徒手", target:"pectoralis major", targetLabel:"胸大肌", animType:"press", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"triceps", secondaryMuscles:["肱三头肌","前三角肌","核心"], instructions:["双手撑地，间距略宽于肩，身体从头到脚跟保持一条直线。","核心收紧，臀部不要塌陷或翘起，脖子保持中立。","弯曲手臂，缓慢下降身体至胸部接近地面。","胸肌和三头肌发力推起身体回到起始位置。","初学者可跪姿完成。建议3-4组，每组力竭。"] },
-  { id:"0007", name:"哑铃肩推", nameEn:"Dumbbell Shoulder Press", category:"肩部", bodyPart:"shoulders", equipment:"dumbbell", equipmentLabel:"哑铃", target:"deltoids", targetLabel:"三角肌", animType:"press", difficulty:"intermediate", difficultyLabel:"中级", muscleGroup:"deltoids", secondaryMuscles:["肱三头肌","上斜方肌"], instructions:["坐或站立，双手各持哑铃于肩部两侧，掌心朝前。","核心收紧，微微挺胸，脊柱保持中立位。","将哑铃垂直向上推至手臂几乎伸直。","在顶端短暂停顿后缓慢下放至肩部起始位置。","全程保持稳定，避免腰部过度反弓。建议3-4组，每组8-12次。"] },
-  { id:"0008", name:"壶铃摇摆", nameEn:"Kettlebell Swing", category:"腿部", bodyPart:"upper legs", equipment:"kettlebell", equipmentLabel:"壶铃", target:"glutes", targetLabel:"臀大肌", animType:"swing", difficulty:"intermediate", difficultyLabel:"中级", muscleGroup:"hamstrings", secondaryMuscles:["臀大肌","腘绳肌","核心"], instructions:["双脚略宽于肩，壶铃放在身前地面上。","屈髋向后，背部保持平直，将壶铃从双腿间向后摆动。","用爆发力伸髋蹬腿，将壶铃向前上方摆动至胸部高度。","顶端时身体完全直立，臀部夹紧。","让壶铃自然落下时再次屈髋准备。建议3-5组，每组12-20次。"] },
-  { id:"0009", name:"绳索下拉", nameEn:"Cable Lat Pulldown", category:"背部", bodyPart:"back", equipment:"cable", equipmentLabel:"绳索", target:"lats", targetLabel:"背阔肌", animType:"pull", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"lats", secondaryMuscles:["肱二头肌","菱形肌"], instructions:["坐在绳索下拉器前，调整腿垫固定大腿。","双手宽握把手，挺胸收肩，身体微微后倾。","想象用肘部向下拉，将把手拉至上胸部位置。","顶峰时背阔肌充分收缩，停顿1秒后缓慢放回。","全程保持核心稳定。建议3-4组，每组10-15次。"] },
-  { id:"0010", name:"平板支撑", nameEn:"Plank", category:"腰部", bodyPart:"waist", equipment:"body weight", equipmentLabel:"徒手", target:"abs", targetLabel:"腹直肌", animType:"static", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"core", secondaryMuscles:["腹横肌","腹斜肌"], instructions:["前臂撑地，肘部在肩部正下方，身体从头到脚保持一条直线。","核心收紧，想象肚脐向脊柱方向收拢。","保持均匀呼吸，不要憋气，脖子保持中立位目视下方。","保持姿势至目标时间，逐步增加时长。","初学者从20-30秒开始，逐步增加至60秒以上。建议3-4组。"] },
-  { id:"0011", name:"哑铃飞鸟", nameEn:"Dumbbell Fly", category:"胸部", bodyPart:"chest", equipment:"dumbbell", equipmentLabel:"哑铃", target:"pectoralis major", targetLabel:"胸大肌", animType:"raise", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"chest", secondaryMuscles:["前三角肌"], instructions:["仰卧在平凳上，双手各持哑铃，手臂伸直于胸部上方。","微微弯曲肘部，保持固定角度，像要拥抱一棵大树一样。","缓慢将哑铃向两侧弧形打开，感受胸肌的拉伸。","下降至哑铃与胸部齐平或略低，然后用胸肌发力合拢。","顶峰时挤压胸肌。建议3-4组，每组10-15次。"] },
-  { id:"0012", name:"杠铃划船", nameEn:"Barbell Row", category:"背部", bodyPart:"back", equipment:"barbell", equipmentLabel:"杠铃", target:"lats", targetLabel:"背阔肌", animType:"curl", difficulty:"intermediate", difficultyLabel:"中级", muscleGroup:"lats", secondaryMuscles:["肱二头肌","菱形肌","后三角肌"], instructions:["双脚与肩同宽，微屈膝，屈髋至上半身与地面约45度。","双手正握杠铃，握距略宽于肩，手臂自然下垂。","收紧肩胛骨，将杠铃拉向腹部位置，肘部贴近身体。","顶峰时挤压背部肌肉，停顿后缓慢下放。","全程保持核心稳定。建议3-4组，每组8-12次。"] },
-  { id:"0013", name:"保加利亚分腿蹲", nameEn:"Bulgarian Split Squat", category:"腿部", bodyPart:"upper legs", equipment:"dumbbell", equipmentLabel:"哑铃", target:"quadriceps", targetLabel:"股四头肌", animType:"squat", difficulty:"intermediate", difficultyLabel:"中级", muscleGroup:"quadriceps", secondaryMuscles:["臀大肌","腘绳肌"], instructions:["背对平凳站立，将后脚背搭在凳面上，前脚向前迈一大步。","双手各持哑铃自然下垂，身体保持直立。","屈前腿膝盖下蹲，后膝向地面靠近，前膝不超过脚尖。","下降至后膝接近地面后，前腿发力站起。","完成一侧后再换另一侧。建议3组，每侧8-12次。"] },
-  { id:"0014", name:"绳索三头下压", nameEn:"Cable Triceps Pushdown", category:"上臂", bodyPart:"upper arms", equipment:"cable", equipmentLabel:"绳索", target:"triceps", targetLabel:"肱三头肌", animType:"pushdown", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"triceps", secondaryMuscles:["前臂"], instructions:["面向绳索器站立，双手握住把手，肘部贴紧身体两侧。","上臂保持固定不动，核心收紧，身体微微前倾。","用三头肌发力将把手向下推至手臂完全伸直。","顶峰时主动收缩三头肌，停顿后缓慢放回。","全程保持肘部固定。建议3-4组，每组12-15次。"] },
-  { id:"0015", name:"侧平举", nameEn:"Dumbbell Lateral Raise", category:"肩部", bodyPart:"shoulders", equipment:"dumbbell", equipmentLabel:"哑铃", target:"deltoids", targetLabel:"三角肌中束", animType:"raise", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"deltoids", secondaryMuscles:["斜方肌上部"], instructions:["站立，双脚与肩同宽，双手各持哑铃于身体两侧。","微微弯曲肘部，保持核心收紧。","将哑铃向两侧抬起至与肩同高，想象倒水的动作。","顶端短暂停顿后缓慢下放，全程控制速度。","重量不宜过大，感受中三角肌发力。建议3-4组，每组12-15次。"] },
-  { id:"0016", name:"俄罗斯转体", nameEn:"Russian Twist", category:"腰部", bodyPart:"waist", equipment:"body weight", equipmentLabel:"徒手", target:"obliques", targetLabel:"腹斜肌", animType:"twist", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"core", secondaryMuscles:["腹直肌"], instructions:["坐于地面，双膝弯曲，身体微微后倾。","双手在胸前合十或持一个哑铃/药球。","收紧核心，从腰部发力将上身向右转动。","迅速转回中间，然后向左侧转动。","左右交替进行。建议3组，每组左右各15-20次。"] },
-  { id:"0017", name:"哑铃臂屈伸", nameEn:"Dumbbell Triceps Extension", category:"上臂", bodyPart:"upper arms", equipment:"dumbbell", equipmentLabel:"哑铃", target:"triceps", targetLabel:"肱三头肌", animType:"extend", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"triceps", secondaryMuscles:["前臂"], instructions:["坐或站立，双手握住一个哑铃举过头顶，手臂伸直。","保持上臂固定不动，贴近耳朵两侧。","弯曲肘部，将哑铃缓慢下放至脑后。","用三头肌发力将哑铃推回头顶上方起始位置。","全程保持核心稳定。建议3-4组，每组10-15次。"] },
-  { id:"0018", name:"腿弯举", nameEn:"Leg Curl", category:"腿部", bodyPart:"upper legs", equipment:"body weight", equipmentLabel:"徒手", target:"hamstrings", targetLabel:"腘绳肌", animType:"legcurl", difficulty:"beginner", difficultyLabel:"初级", muscleGroup:"hamstrings", secondaryMuscles:["小腿"], instructions:["俯卧在地面或垫子上，双腿伸直。","核心收紧，骨盆贴紧地面。","弯曲膝盖，将脚跟向臀部方向靠近。","顶峰时停顿1-2秒，然后缓慢控制下放。","全程保持骨盆稳定。建议3-4组，每组12-15次。"] }
-];
+let exercises = [];
+let exercisesLoaded = false;
+let displayLimit = 24; // pagination: show 24 at a time
+
+// Exercise media: GIF with lazy loading
+function getExerciseMedia(ex, lazy) {
+  lazy = lazy !== false;
+  const url = ex.gifUrl || (ASSETS_CDN + ex.gif_url);
+  return '<div class="ex-anim ex-gif-wrap"><img class="ex-gif" src="' + url + '" alt="' + ex.name + '" loading="' + (lazy ? 'lazy' : 'eager') + '" decoding="async" onerror="this.style.display=\'none\';this.parentElement.classList.add(\'img-error\')"></div>';
+}
+
+// Small thumbnail for plan items
+function getExerciseThumb(ex) {
+  const url = ex.gifUrl || (ASSETS_CDN + ex.gif_url);
+  return '<div class="ex-anim ex-thumb-wrap"><img class="ex-thumb" src="' + url + '" alt="' + ex.name + '" loading="lazy" decoding="async"></div>';
+}
+
+async function loadExercises() {
+  const grid = document.getElementById('exercise-grid');
+  if (grid) grid.innerHTML = '<div class="loading-state"><div class="loading-spinner"></div><p>正在加载 1324 个动作…</p></div>';
+  const rc = document.getElementById('result-count');
+  if (rc) rc.textContent = '加载中…';
+  try {
+    const res = await fetch(EXERCISES_CDN);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    exercises = data.map(function(ex) {
+      var steps = (ex.instruction_steps && ex.instruction_steps.en) || [];
+      if (steps.length === 0 && ex.instructions && ex.instructions.en) {
+        steps = [ex.instructions.en];
+      }
+      return {
+        id: ex.id,
+        name: ex.name,
+        category: ex.category || '',
+        bodyPart: ex.body_part || ex.category || '',
+        equipment: ex.equipment || 'other',
+        target: ex.target || ex.muscle_group || '',
+        muscleGroup: ex.muscle_group || '',
+        secondaryMuscles: ex.secondary_muscles || [],
+        gifUrl: ASSETS_CDN + ex.gif_url,
+        imageUrl: ex.image ? ASSETS_CDN + ex.image : '',
+        instructions: steps,
+        isHold: isHoldExercise(ex.name),
+      };
+    });
+    exercisesLoaded = true;
+  } catch(e) {
+    console.error('Failed to load exercises:', e);
+    exercises = [];
+    exercisesLoaded = false;
+    if (grid) grid.innerHTML = '<div class="loading-state"><p>动作数据加载失败，请检查网络后刷新</p><button class="btn-primary" onclick="loadExercises()">重新加载</button></div>';
+    if (rc) rc.textContent = '加载失败';
+    return;
+  }
+  renderFilters();
+  renderGrid();
+  updateBadges();
+}
+
+// Keep old function as no-op fallback (in case any reference remains)
+function getAnimSVG(type) {
+  return '<div class="ex-anim ex-gif-wrap img-error"></div>';
+}
 
 // ===== Supabase Config =====
-// 👇 替换为你自己的 Supabase 项目信息（Dashboard → Settings → API）
-// ⚠️ 演示模式：临时用假 URL 激活 UI，实际使用请替换为真实密钥
-const SUPABASE_URL = 'https://demo.supabase.co';
-const SUPABASE_ANON_KEY = 'demo-anon-key-for-preview';
+const SUPABASE_URL = 'https://kllajtqwejcsqvumyatr.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_p8MdWo7puSfTz3muzQpNOA_uS-li8nF';
 let sb = null;
 let currentUser = null;
 let supabaseReady = false;
 
-// 初始化 Supabase 客户端（如果配置了密钥）
+// 初始化 Supabase 客户端
 let isDemoMode = false;
-if (SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY') {
-  if (SUPABASE_URL === 'https://demo.supabase.co') {
-    // 演示模式：不创建真实连接，UI 正常显示但数据走本地
-    isDemoMode = true;
-    supabaseReady = true;
-  } else {
-    try {
-      sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      supabaseReady = true;
-    } catch (e) { console.warn('Supabase init failed:', e); }
-  }
-}
+try {
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  supabaseReady = true;
+} catch (e) { console.warn('Supabase init failed:', e); }
 
 // ===== State =====
 let activeBodyPart = 'all';
@@ -3734,40 +3907,50 @@ function toggleFavorite(id) {
   saveFavorites();
 }
 
-// ===== Render Grid =====
+// ===== Dynamic Filters =====
+function renderFilters() {
+  // No-op: filters are static in HTML, values already match dataset
+}
+
+// ===== Render Grid (with pagination + lazy GIF loading) =====
 function renderGrid() {
+  if (!exercisesLoaded) { return; }
   const filtered = exercises.filter(ex => {
     if (favFilterActive && !isFavorite(ex.id)) return false;
     if (activeBodyPart !== 'all' && ex.category !== activeBodyPart) return false;
     if (activeEquipment !== 'all' && ex.equipment !== activeEquipment) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      const haystack = (ex.name + ex.nameEn + ex.targetLabel + ex.equipmentLabel + ex.category).toLowerCase();
+      const haystack = (ex.name + ' ' + getTargetLabel(ex.target) + ' ' + getEquipmentLabel(ex.equipment) + ' ' + getCategoryLabel(ex.category) + ' ' + ex.muscleGroup).toLowerCase();
       if (!haystack.includes(q)) return false;
     }
     return true;
   });
 
+  displayLimit = 24;
   resultCount.textContent = `共 ${filtered.length} 个动作${favFilterActive ? '（收藏）' : ''}`;
-  grid.innerHTML = filtered.map(ex => `
+
+  const visible = filtered.slice(0, displayLimit);
+  const hasMore = filtered.length > displayLimit;
+
+  grid.innerHTML = visible.map(ex => `
     <div class="exercise-card" data-id="${ex.id}">
       <div class="card-media">
-        ${getAnimSVG(ex.animType)}
-        <span class="tag-top">${ex.difficultyLabel}</span>
+        ${getExerciseMedia(ex)}
         <button class="star-btn ${isFavorite(ex.id) ? 'starred' : ''}" data-star="${ex.id}">${isFavorite(ex.id) ? '★' : '☆'}</button>
       </div>
       <div class="card-body">
         <div class="card-name">${ex.name}</div>
         <div class="card-meta">
-          <span class="meta-pill target">${ex.targetLabel}</span>
-          <span class="meta-pill equipment">${ex.equipmentLabel}</span>
+          <span class="meta-pill target">${getTargetLabel(ex.target)}</span>
+          <span class="meta-pill equipment">${getEquipmentLabel(ex.equipment)}</span>
         </div>
         <button class="add-btn ${isInPlan(ex.id) ? 'added' : ''}" data-add="${ex.id}">
           ${isInPlan(ex.id) ? '✓ 已加入计划' : '+ 加入计划'}
         </button>
       </div>
     </div>
-  `).join('');
+  `).join('') + (hasMore ? '<div class="load-more-wrap" id="load-more-wrap"><button class="load-more-btn" id="load-more-btn">加载更多（剩余 ' + (filtered.length - displayLimit) + ' 个）</button></div>' : '');
 
   grid.querySelectorAll('.exercise-card').forEach(card => {
     card.addEventListener('click', e => {
@@ -3781,27 +3964,78 @@ function renderGrid() {
   grid.querySelectorAll('[data-star]').forEach(btn => {
     btn.addEventListener('click', e => { e.stopPropagation(); toggleFavorite(e.target.dataset.star); renderGrid(); });
   });
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      displayLimit += 24;
+      const f2 = exercises.filter(ex => {
+        if (favFilterActive && !isFavorite(ex.id)) return false;
+        if (activeBodyPart !== 'all' && ex.category !== activeBodyPart) return false;
+        if (activeEquipment !== 'all' && ex.equipment !== activeEquipment) return false;
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          const haystack = (ex.name + ' ' + getTargetLabel(ex.target) + ' ' + getEquipmentLabel(ex.equipment) + ' ' + getCategoryLabel(ex.category) + ' ' + ex.muscleGroup).toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+      const visible2 = f2.slice(0, displayLimit);
+      const hasMore2 = f2.length > displayLimit;
+      grid.innerHTML = visible2.map(ex => `
+        <div class="exercise-card" data-id="${ex.id}">
+          <div class="card-media">
+            ${getExerciseMedia(ex)}
+            <button class="star-btn ${isFavorite(ex.id) ? 'starred' : ''}" data-star="${ex.id}">${isFavorite(ex.id) ? '★' : '☆'}</button>
+          </div>
+          <div class="card-body">
+            <div class="card-name">${ex.name}</div>
+            <div class="card-meta">
+              <span class="meta-pill target">${getTargetLabel(ex.target)}</span>
+              <span class="meta-pill equipment">${getEquipmentLabel(ex.equipment)}</span>
+            </div>
+            <button class="add-btn ${isInPlan(ex.id) ? 'added' : ''}" data-add="${ex.id}">
+              ${isInPlan(ex.id) ? '✓ 已加入计划' : '+ 加入计划'}
+            </button>
+          </div>
+        </div>
+      `).join('') + (hasMore2 ? '<div class="load-more-wrap"><button class="load-more-btn" id="load-more-btn">加载更多（剩余 ' + (f2.length - displayLimit) + ' 个）</button></div>' : '');
+      grid.querySelectorAll('.exercise-card').forEach(card => {
+        card.addEventListener('click', e => {
+          if (e.target.hasAttribute('data-add') || e.target.hasAttribute('data-star') || e.target.closest('.star-btn')) return;
+          openDetail(card.dataset.id);
+        });
+      });
+      grid.querySelectorAll('[data-add]').forEach(btn => {
+        btn.addEventListener('click', e => { e.stopPropagation(); togglePlan(e.target.dataset.add); renderGrid(); });
+      });
+      grid.querySelectorAll('[data-star]').forEach(btn => {
+        btn.addEventListener('click', e => { e.stopPropagation(); toggleFavorite(e.target.dataset.star); renderGrid(); });
+      });
+      const btn2 = document.getElementById('load-more-btn');
+      if (btn2) btn2.addEventListener('click', arguments.callee);
+    });
+  }
 }
 
 // ===== Detail Modal =====
 function openDetail(id) {
   const ex = exercises.find(e => e.id === id);
   if (!ex) return;
-  modalMedia.innerHTML = getAnimSVG(ex.animType);
+  modalMedia.innerHTML = getExerciseMedia(ex, false);
   modalContent.innerHTML = `
     <h2 class="modal-title">${ex.name}</h2>
-    <p class="modal-subtitle">${ex.nameEn} · ${ex.difficultyLabel}难度</p>
+    <p class="modal-subtitle">${getCategoryLabel(ex.category)} · ${getEquipmentLabel(ex.equipment)}${ex.isHold ? ' · 静力' : ''}</p>
     <div class="modal-tags">
-      <span class="meta-pill target">🎯 ${ex.targetLabel}</span>
-      <span class="meta-pill equipment">🏋️ ${ex.equipmentLabel}</span>
+      <span class="meta-pill target">🎯 ${getTargetLabel(ex.target)}</span>
+      <span class="meta-pill equipment">🏋️ ${getEquipmentLabel(ex.equipment)}</span>
       <span class="meta-pill">💪 ${ex.muscleGroup}</span>
-      <span class="meta-pill">📊 ${ex.category}</span>
+      <span class="meta-pill">📊 ${getCategoryLabel(ex.category)}</span>
     </div>
     <div class="modal-section-title">📋 动作步骤</div>
     <ol class="steps-list">${ex.instructions.map(s => `<li>${s}</li>`).join('')}</ol>
     <div class="modal-section-title">🔗 协同肌群</div>
     <p style="font-size:14px;color:var(--text-muted);margin-bottom:24px;">
-      ${ex.secondaryMuscles.map(m => `<span class="meta-pill" style="margin-right:6px;">${m}</span>`).join('')}
+      ${(ex.secondaryMuscles||[]).map(m => `<span class="meta-pill" style="margin-right:6px;">${getTargetLabel(m)}</span>`).join('')}
     </p>
     <div class="modal-actions">
       <button class="btn-primary" id="modal-add-btn">${isInPlan(ex.id) ? '✓ 已在计划中' : '+ 加入训练计划'}</button>
@@ -3835,7 +4069,7 @@ function togglePlan(id) {
     planItems = planItems.filter(i => i.id !== id);
     showToast(`已从计划中移除：${ex.name}`);
   } else {
-    const defaultReps = ex.animType === 'static' ? 30 : 12;
+    const defaultReps = ex.isHold ? 30 : 12;
     planItems.push({ id: ex.id, sets: 3, reps: defaultReps });
     showToast(`已加入计划：${ex.name}`);
   }
@@ -3952,8 +4186,8 @@ function renderPlan() {
       ${planItems.map(item => {
         const ex = exercises.find(e => e.id === item.id);
         return `<div class="plan-item">
-          <div class="plan-item-icon">${getAnimSVG(ex.animType)}</div>
-          <div class="plan-item-info"><div class="plan-item-name">${ex.name}</div><div class="plan-item-meta">${item.sets}组 × ${item.reps}${ex.animType === 'static' ? '秒' : '次'} · ${ex.targetLabel} · ${ex.equipmentLabel}</div></div>
+          <div class="plan-item-icon">${getExerciseThumb(ex)}</div>
+          <div class="plan-item-info"><div class="plan-item-name">${ex.name}</div><div class="plan-item-meta">${item.sets}组 × ${item.reps}${ex.isHold ? '秒' : '次'} · ${getTargetLabel(ex.target)} · ${getEquipmentLabel(ex.equipment)}</div></div>
           <button class="plan-remove" data-remove="${item.id}">✕</button>
         </div>`;
       }).join('')}
@@ -3977,8 +4211,8 @@ function startWorkout() {
     exercises: planItems.map(item => {
       const ex = exercises.find(e => e.id === item.id);
       return {
-        id: ex.id, name: ex.name, targetLabel: ex.targetLabel, animType: ex.animType,
-        equipment: ex.equipment, isHold: ex.animType === 'static',
+        id: ex.id, name: ex.name, targetLabel: getTargetLabel(ex.target),
+        equipment: ex.equipment, isHold: ex.isHold,
         sets: Array.from({length: item.sets}, () => ({ weight: '', reps: '', done: false }))
       };
     })
@@ -4608,7 +4842,7 @@ async function init() {
         workoutHistory = JSON.parse(localStorage.getItem('fittrack_history') || '[]');
         planItems = [];
         renderAuthArea();
-        renderGrid();
+        if (exercisesLoaded) renderGrid();
         renderPlan();
         updateBadges();
       } else if (event === 'SIGNED_IN' && session) {
@@ -4622,7 +4856,7 @@ async function init() {
     workoutHistory = JSON.parse(localStorage.getItem('fittrack_history') || '[]');
   }
   renderAuthArea();
-  renderGrid();
+  await loadExercises();
   updateBadges();
 }
 init();
