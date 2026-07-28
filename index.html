@@ -603,7 +603,7 @@
 
   /* ===== Rest Timer ===== */
   .timer-overlay {
-    position: fixed; inset: 0; z-index: 250;
+    position: fixed; inset: 0; z-index: 550;
     background: rgba(0,0,0,0.8); backdrop-filter: blur(12px);
     display: none; align-items: center; justify-content: center;
     flex-direction: column; gap: 24px;
@@ -2376,7 +2376,7 @@
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785217145174']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785218756438']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -2714,7 +2714,7 @@
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785217145179']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785218756451']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -4728,7 +4728,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
 <script>
 
 // ===== I18N: Bilingual Support (zh/en) =====
@@ -6839,9 +6838,9 @@ function getAnimSVG(type) {
   return '<div class="ex-anim ex-gif-wrap img-error"></div>';
 }
 
-// ===== Supabase Config (从外部 config.js 加载) =====
-const SUPABASE_URL = window.FITTRACK_CONFIG?.supabaseUrl || '';
-const SUPABASE_ANON_KEY = window.FITTRACK_CONFIG?.supabaseAnonKey || '';
+// ===== Supabase Config =====
+const SUPABASE_URL = 'https://kllajtqwejcsqvumyatr.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_p8MdWo7puSfTz3muzQpNOA_uS-li8nF';
 let sb = null;
 let currentUser = null;
 let supabaseReady = false;
@@ -6849,13 +6848,8 @@ let supabaseReady = false;
 // 初始化 Supabase 客户端
 let isDemoMode = false;
 try {
-  if (SUPABASE_URL && SUPABASE_ANON_KEY) {
-    sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    supabaseReady = true;
-  } else {
-    console.warn('Supabase config not found in config.js, running in demo mode');
-    isDemoMode = true;
-  }
+  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  supabaseReady = true;
 } catch (e) { console.warn('Supabase init failed:', e); }
 
 // ===== State =====
@@ -6892,17 +6886,17 @@ const authError = document.getElementById('auth-error');
 function saveFavorites() {
   if (!currentUser) { localStorage.setItem('fittrack_favorites', JSON.stringify(favorites)); return; }
   if (isDemoMode) { localStorage.setItem('demo_' + currentUser.email + '_fav', JSON.stringify(favorites)); return; }
-  sb.from('user_data').upsert({ user_id: currentUser.id, favorites: favorites }).then(r => {}).catch(e => console.warn('save fav:', e));
+  sb.from('user_data').upsert({ user_id: currentUser.id, favorites: favorites }, { onConflict: 'user_id' }).then(r => {}).catch(e => console.warn('save fav:', e));
 }
 function saveHistory() {
   if (!currentUser) { localStorage.setItem('fittrack_history', JSON.stringify(workoutHistory)); return; }
   if (isDemoMode) { localStorage.setItem('demo_' + currentUser.email + '_hist', JSON.stringify(workoutHistory)); return; }
-  sb.from('user_data').upsert({ user_id: currentUser.id, workout_history: workoutHistory }).then(r => {}).catch(e => console.warn('save hist:', e));
+  sb.from('user_data').upsert({ user_id: currentUser.id, workout_history: workoutHistory }, { onConflict: 'user_id' }).then(r => {}).catch(e => console.warn('save hist:', e));
 }
 function savePlan() {
   if (!currentUser) return;
   if (isDemoMode) { localStorage.setItem('demo_' + currentUser.email + '_plan', JSON.stringify(planItems)); return; }
-  sb.from('user_data').upsert({ user_id: currentUser.id, plan_items: planItems }).then(r => {}).catch(e => console.warn('save plan:', e));
+  sb.from('user_data').upsert({ user_id: currentUser.id, plan_items: planItems }, { onConflict: 'user_id' }).then(r => {}).catch(e => console.warn('save plan:', e));
 }
 async function loadUserData() {
   if (!currentUser || !supabaseReady) {
@@ -7181,7 +7175,7 @@ function renderPlan() {
     document.getElementById('cancel-workout').addEventListener('click', cancelWorkout);
     c.querySelectorAll('[data-toggle]').forEach(btn => {
       btn.addEventListener('click', e => {
-        const [exIdx, setIdx] = e.target.dataset.toggle.split('-').map(Number);
+        const [exIdx, setIdx] = btn.dataset.toggle.split('-').map(Number);
         const set = activeSession.exercises[exIdx].sets[setIdx];
         set.done = !set.done;
         if (set.done) {
@@ -7202,14 +7196,14 @@ function renderPlan() {
     });
     c.querySelectorAll('[data-addset]').forEach(btn => {
       btn.addEventListener('click', e => {
-        const exIdx = parseInt(e.target.dataset.addset);
+        const exIdx = parseInt(btn.dataset.addset);
         activeSession.exercises[exIdx].sets.push({ weight: '', reps: '', done: false });
         renderPlan();
       });
     });
     c.querySelectorAll('[data-rmset]').forEach(btn => {
       btn.addEventListener('click', e => {
-        const [exIdx, setIdx] = e.target.dataset.rmset.split('-').map(Number);
+        const [exIdx, setIdx] = btn.dataset.rmset.split('-').map(Number);
         if (activeSession.exercises[exIdx].sets.length > 1) {
           activeSession.exercises[exIdx].sets.splice(setIdx, 1);
           renderPlan();
@@ -7519,6 +7513,8 @@ function stopTimerAnimation() {
 }
 
 function showTimer(seconds) {
+  // 在用户手势中预解锁 AudioContext（移动端需要）
+  unlockAudio();
   timerTotal = seconds;
   timerRemaining = seconds;
   timerPaused = false;
@@ -7539,6 +7535,8 @@ function showTimer(seconds) {
 }
 
 function startTimer() {
+  // 确保 AudioContext 已解锁（用户点击"开始"按钮时）
+  unlockAudio();
   timerStarted = true;
   timerPaused = false;
   stopTimerAnimation();
@@ -7615,6 +7613,20 @@ function timerFinish() {
 let alarmAudioCtx = null;
 let alarmInterval = null;
 
+// 在用户手势中预解锁 AudioContext（解决移动端自动播放限制）
+function unlockAudio() {
+  try {
+    if (!alarmAudioCtx) {
+      alarmAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (alarmAudioCtx.state === 'suspended') {
+      alarmAudioCtx.resume();
+    }
+  } catch (e) {
+    console.warn('unlockAudio failed:', e);
+  }
+}
+
 function startAlarmSound() {
   try {
     if (!alarmAudioCtx) {
@@ -7648,10 +7660,7 @@ function stopAlarmSound() {
     clearInterval(alarmInterval);
     alarmInterval = null;
   }
-  if (alarmAudioCtx && alarmAudioCtx.state !== 'closed') {
-    alarmAudioCtx.close().catch(function(){});
-    alarmAudioCtx = null;
-  }
+  // 不再 close AudioContext，保留以供下次复用（避免移动端需要重新在用户手势中创建）
 }
 
 function stopAlarm() {
@@ -7720,6 +7729,18 @@ document.querySelectorAll('.timer-preset').forEach(p => {
     updateTimerPresets(sec);
     document.getElementById('timer-progress-circle').style.strokeDashoffset = 0;
   });
+});
+
+// ===== 页面恢复时检查计时器是否已超时（移动端锁屏/切后台后 RAF 被暂停） =====
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && timerStarted && !timerPaused) {
+    // 页面恢复可见，检查是否已超时
+    var remaining = (timerEndTime - Date.now()) / 1000;
+    if (remaining <= 0 && !timerOverlay.classList.contains('alarm')) {
+      timerRemaining = 0;
+      timerFinish();
+    }
+  }
 });
 
 // ===== Toast =====
@@ -7997,11 +8018,14 @@ async function handleDeleteAccount() {
 
 async function onAuthSuccess() {
   await loadUserData();
-  await loadProfile();
   renderAuthArea();
   renderGrid();
   renderPlan();
   updateBadges();
+  // 若当前停在账号页面，刷新基础信息表单
+  if (!document.getElementById('tab-profile').classList.contains('hidden')) {
+    renderProfile();
+  }
   showToast(t('login_success'));
 }
 
@@ -8018,7 +8042,7 @@ async function loadProfile() {
     userProfile = (data && data.profile) || null;
   } catch (e) {
     console.warn('load profile failed:', e);
-    userProfile = null;
+    userProfile = JSON.parse(localStorage.getItem('fittrack_profile') || 'null');
   }
 }
 
@@ -8034,7 +8058,7 @@ async function saveProfile(profileData) {
     return;
   }
   try {
-    await sb.from('user_data').upsert({ user_id: currentUser.id, profile: profileData });
+    await sb.from('user_data').upsert({ user_id: currentUser.id, profile: profileData }, { onConflict: 'user_id' });
     userProfile = profileData;
   } catch (e) {
     console.warn('save profile failed:', e);
@@ -8338,6 +8362,7 @@ async function init() {
       userProfile = JSON.parse(localStorage.getItem('fittrack_profile') || 'null');
     }
     // 监听认证状态变化
+    let authProcessing = false;
     sb.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_OUT') {
         currentUser = null;
@@ -8350,8 +8375,12 @@ async function init() {
         renderPlan();
         updateBadges();
       } else if (event === 'SIGNED_IN' && session) {
+        // 防重入：避免 onAuthSuccess 与 onAuthStateChange 双重触发
+        if (authProcessing) return;
+        authProcessing = true;
         currentUser = session.user;
         await onAuthSuccess();
+        authProcessing = false;
       }
     });
   } else {
