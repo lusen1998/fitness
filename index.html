@@ -721,6 +721,16 @@
     outline: none; transition: border-color 0.2s;
   }
   .auth-field input:focus { border-color: var(--brand); }
+  .auth-field.has-toggle { position: relative; }
+  .auth-field.has-toggle input { padding-right: 44px; }
+  .pw-toggle-btn {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; padding: 6px;
+    color: var(--text-muted); display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s;
+  }
+  .pw-toggle-btn:hover { color: var(--text); }
+  .pw-toggle-btn svg { width: 20px; height: 20px; }
   .auth-submit {
     width: 100%; padding: 13px; border-radius: var(--radius);
     border: none; background: var(--brand); color: #fff;
@@ -2376,7 +2386,7 @@
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785218756438']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785220339183']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -2714,7 +2724,7 @@
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785218756451']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785220339188']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -4700,9 +4710,13 @@
         <label>邮箱</label>
         <input type="email" id="auth-email" placeholder="you@example.com" autocomplete="email">
       </div>
-      <div class="auth-field">
+      <div class="auth-field has-toggle">
         <label>密码</label>
         <input type="password" id="auth-password" placeholder="至少 6 位" autocomplete="current-password">
+        <button type="button" class="pw-toggle-btn" id="pw-toggle" aria-label="显示密码">
+          <svg class="pw-eye-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          <svg class="pw-eye-hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+        </button>
       </div>
     </div>
     <!-- 邮箱验证码表单 -->
@@ -4727,6 +4741,7 @@
   </div>
 </div>
 
+<script src="data:application/javascript;base64,Ly8gRml0VHJhY2sg6YWN572u5paH5Lu2Ci8vIOmDqOe9suWJjeivt+Whq+WGmeS9oOiHquW3seeahCBTdXBhYmFzZSDpobnnm67kv6Hmga8KLy8g6I635Y+W5pa55byP77yaaHR0cHM6Ly9zdXBhYmFzZS5jb20vZGFzaGJvYXJkIOKGkiDpobnnm67orr7nva4g4oaSIEFQSQp3aW5kb3cuRklUVFJBQ0tfQ09ORklHID0gewogIC8vIFN1cGFiYXNlIOmhueebriBVUkzvvIjmoLzlvI/vvJpodHRwczovL3h4eHh4LnN1cGFiYXNlLmNv77yJCiAgc3VwYWJhc2VVcmw6ICdodHRwczovL2tsbGFqdHF3ZWpjc3F2dW15YXRyLnN1cGFiYXNlLmNvJywKICAvLyBTdXBhYmFzZSDljL/lkI3lhazpkqXvvIhwdWJsaXNoYWJsZSBhbm9uIGtlee+8jOWPr+WuieWFqOaatOmcsuWcqOWJjeerr++8iQogIHN1cGFiYXNlQW5vbktleTogJ3NiX3B1Ymxpc2hhYmxlX3A4TWRXbzdwdVNmVHozbXV6UXBOT0FfdVMtbGk4bkYnCn07Cg=="></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
@@ -6839,8 +6854,8 @@ function getAnimSVG(type) {
 }
 
 // ===== Supabase Config =====
-const SUPABASE_URL = 'https://kllajtqwejcsqvumyatr.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_p8MdWo7puSfTz3muzQpNOA_uS-li8nF';
+const SUPABASE_URL = (window.FITTRACK_CONFIG && window.FITTRACK_CONFIG.supabaseUrl) || '';
+const SUPABASE_ANON_KEY = (window.FITTRACK_CONFIG && window.FITTRACK_CONFIG.supabaseAnonKey) || '';
 let sb = null;
 let currentUser = null;
 let supabaseReady = false;
@@ -7805,6 +7820,24 @@ document.querySelectorAll('.nav-tab').forEach(tab => tab.addEventListener('click
 let authMode = 'login';
 let userProfile = null;
 
+// 密码显示/隐藏切换
+document.getElementById('pw-toggle').addEventListener('click', function() {
+  var input = document.getElementById('auth-password');
+  var eyeShow = this.querySelector('.pw-eye-show');
+  var eyeHide = this.querySelector('.pw-eye-hide');
+  if (input.type === 'password') {
+    input.type = 'text';
+    eyeShow.style.display = 'none';
+    eyeHide.style.display = '';
+    this.setAttribute('aria-label', '隐藏密码');
+  } else {
+    input.type = 'password';
+    eyeShow.style.display = '';
+    eyeHide.style.display = 'none';
+    this.setAttribute('aria-label', '显示密码');
+  }
+});
+
 function renderAuthArea() {
   if (!supabaseReady) {
     authArea.innerHTML = '';
@@ -7827,8 +7860,25 @@ function renderAuthArea() {
   }
 }
 
-function openAuthModal() { authError.textContent = ''; authModal.classList.add('show'); }
-function closeAuthModal() { authModal.classList.remove('show'); }
+function openAuthModal() { authError.textContent = ''; resetPwToggle(); authModal.classList.add('show'); }
+function resetPwToggle() {
+  var input = document.getElementById('auth-password');
+  var toggle = document.getElementById('pw-toggle');
+  if (!input || !toggle) return;
+  input.type = 'password';
+  var eyeShow = toggle.querySelector('.pw-eye-show');
+  var eyeHide = toggle.querySelector('.pw-eye-hide');
+  if (eyeShow) eyeShow.style.display = '';
+  if (eyeHide) eyeHide.style.display = 'none';
+  toggle.setAttribute('aria-label', '显示密码');
+}
+
+function closeAuthModal() {
+  resetPwToggle();
+  var pwInput = document.getElementById('auth-password');
+  if (pwInput) pwInput.value = '';
+  authModal.classList.remove('show');
+}
 
 function switchAuthMode(mode) {
   authMode = mode;
@@ -7849,6 +7899,7 @@ function switchAuthMode(mode) {
     authSubmit.textContent = mode === 'login' ? t('auth_login') : t('auth_signup');
     hint.textContent = t('auth_hint_reg');
   }
+  resetPwToggle();
   authError.textContent = '';
 }
 
