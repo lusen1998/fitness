@@ -2376,7 +2376,7 @@
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785216543152']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785217145174']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -2714,7 +2714,7 @@
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785216543157']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785217145179']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -4728,6 +4728,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
 <script>
 
 // ===== I18N: Bilingual Support (zh/en) =====
@@ -6838,9 +6839,9 @@ function getAnimSVG(type) {
   return '<div class="ex-anim ex-gif-wrap img-error"></div>';
 }
 
-// ===== Supabase Config =====
-const SUPABASE_URL = 'https://kllajtqwejcsqvumyatr.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_p8MdWo7puSfTz3muzQpNOA_uS-li8nF';
+// ===== Supabase Config (从外部 config.js 加载) =====
+const SUPABASE_URL = window.FITTRACK_CONFIG?.supabaseUrl || '';
+const SUPABASE_ANON_KEY = window.FITTRACK_CONFIG?.supabaseAnonKey || '';
 let sb = null;
 let currentUser = null;
 let supabaseReady = false;
@@ -6848,8 +6849,13 @@ let supabaseReady = false;
 // 初始化 Supabase 客户端
 let isDemoMode = false;
 try {
-  sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  supabaseReady = true;
+  if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    supabaseReady = true;
+  } else {
+    console.warn('Supabase config not found in config.js, running in demo mode');
+    isDemoMode = true;
+  }
 } catch (e) { console.warn('Supabase init failed:', e); }
 
 // ===== State =====
