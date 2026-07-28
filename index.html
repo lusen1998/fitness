@@ -2386,7 +2386,7 @@
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785220339183']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785233762831']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -2724,7 +2724,7 @@
   try {
     const client = await import('/@vite/client');
     const hmr = client.createHotContext('hmr-handler/fake.js');
-    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785220339188']);
+    hmr.on('vite:afterUpdate', window['__ICUBE_WEBVIEW_HMR_CALLBACK_1785233762837']);
   } catch {}
 })();</script><style>.buttonsCard-bTXa5j {
   padding: var(--spacer-4);
@@ -6901,17 +6901,17 @@ const authError = document.getElementById('auth-error');
 function saveFavorites() {
   if (!currentUser) { localStorage.setItem('fittrack_favorites', JSON.stringify(favorites)); return; }
   if (isDemoMode) { localStorage.setItem('demo_' + currentUser.email + '_fav', JSON.stringify(favorites)); return; }
-  sb.from('user_data').upsert({ user_id: currentUser.id, favorites: favorites }, { onConflict: 'user_id' }).then(r => {}).catch(e => console.warn('save fav:', e));
+  sb.from('user_data').upsert({ user_id: currentUser.id, favorites: favorites }, { onConflict: 'user_id' }).then(r => { if (r.error) console.warn('save fav:', r.error); }).catch(e => console.warn('save fav:', e));
 }
 function saveHistory() {
   if (!currentUser) { localStorage.setItem('fittrack_history', JSON.stringify(workoutHistory)); return; }
   if (isDemoMode) { localStorage.setItem('demo_' + currentUser.email + '_hist', JSON.stringify(workoutHistory)); return; }
-  sb.from('user_data').upsert({ user_id: currentUser.id, workout_history: workoutHistory }, { onConflict: 'user_id' }).then(r => {}).catch(e => console.warn('save hist:', e));
+  sb.from('user_data').upsert({ user_id: currentUser.id, workout_history: workoutHistory }, { onConflict: 'user_id' }).then(r => { if (r.error) console.warn('save hist:', r.error); }).catch(e => console.warn('save hist:', e));
 }
 function savePlan() {
   if (!currentUser) return;
   if (isDemoMode) { localStorage.setItem('demo_' + currentUser.email + '_plan', JSON.stringify(planItems)); return; }
-  sb.from('user_data').upsert({ user_id: currentUser.id, plan_items: planItems }, { onConflict: 'user_id' }).then(r => {}).catch(e => console.warn('save plan:', e));
+  sb.from('user_data').upsert({ user_id: currentUser.id, plan_items: planItems }, { onConflict: 'user_id' }).then(r => { if (r.error) console.warn('save plan:', r.error); }).catch(e => console.warn('save plan:', e));
 }
 async function loadUserData() {
   if (!currentUser || !supabaseReady) {
@@ -7975,6 +7975,7 @@ authSubmit.addEventListener('click', async () => {
         }
         closeAuthModal();
         await onAuthSuccess();
+        if (isDemoMode) showToast('演示模式：数据仅保存在本地，不会上传云端');
       }
     } catch (e) {
       authError.textContent = e.message || t('err_code');
@@ -8025,6 +8026,7 @@ authSubmit.addEventListener('click', async () => {
       currentUser = { id: 'demo-' + email, email: email };
       closeAuthModal();
       await onAuthSuccess();
+      showToast('演示模式：数据仅保存在本地，不会上传云端');
     } else {
       authError.textContent = e.message || '操作失败，请重试';
     }
@@ -8109,11 +8111,22 @@ async function saveProfile(profileData) {
     return;
   }
   try {
-    await sb.from('user_data').upsert({ user_id: currentUser.id, profile: profileData }, { onConflict: 'user_id' });
+    const { data, error } = await sb.from('user_data').upsert({ user_id: currentUser.id, profile: profileData }, { onConflict: 'user_id' });
+    if (error) throw error;
     userProfile = profileData;
   } catch (e) {
-    console.warn('save profile failed:', e);
-    showToast(t('save_failed'));
+    console.error('save profile failed:', e);
+    var msg = e.message || String(e);
+    if (msg.includes('row-level security') || msg.includes('RLS')) {
+      showToast('保存失败：Supabase RLS 策略未配置，请在 SQL Editor 执行 RLS 授权语句');
+    } else if (msg.includes('column') && msg.includes('profile')) {
+      showToast('保存失败：user_data 表缺少 profile 列，请在 Supabase 中添加该列');
+    } else if (msg.includes('relation') && msg.includes('does not exist')) {
+      showToast('保存失败：user_data 表不存在，请在 Supabase SQL Editor 中建表');
+    } else {
+      showToast(t('save_failed') + '：' + msg);
+    }
+    throw e;
   }
 }
 
@@ -8205,15 +8218,24 @@ function renderProfile() {
 
   // 绑定事件
   document.getElementById('pf-save-basic').addEventListener('click', async () => {
+    const btn = document.getElementById('pf-save-basic');
+    btn.disabled = true;
+    btn.textContent = '...';
     const data = {
       birthday: document.getElementById('pf-birthday').value,
       gender: document.getElementById('pf-gender').value,
       height: document.getElementById('pf-height').value,
       weight: document.getElementById('pf-weight').value,
     };
-    await saveProfile(data);
-    renderProfile();
-    showToast(t('basic_saved'));
+    try {
+      await saveProfile(data);
+      renderProfile();
+      showToast(t('basic_saved'));
+    } catch (e) {
+      // saveProfile 已显示具体错误提示
+    } finally {
+      btn.disabled = false;
+    }
   });
 
   const basicCard = document.getElementById('basic-card');
