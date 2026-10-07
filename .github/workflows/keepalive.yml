@@ -1,0 +1,66 @@
+# .github/workflows/keepalive.yml
+# 作用：让本仓库保持"近期有提交"，避免 GitHub 在 60 天无提交后自动禁用定时工作流
+#      （例如 "Keep Supabase Alive"）。
+# 机制：每月 1 日与 15 日各检查一次仓库最后一次提交的时间；若已超过 30 天，
+#      则向 .github/keepalive/heartbeat.log 追加一条真实心跳记录并提交，
+#      从而重置 GitHub 的 60 天不活跃计时器（阈值 30 天留出约 30 天缓冲）。
+# 安全边界：只新建/追加 .github/keepalive/ 下的记录文件，不触碰业务代码，
+#          不做 force push，不引入任何第三方 Action，参数全部固定。
+# 备注：GITHUB_TOKEN 的 push 不会触发其他 workflow 连锁运行，"[skip ci]" 为双保险；
+#      每次心跳会连带触发一次 Pages 重建（静态站点，原子替换，无功能影响）。
+
+name: Repo Keepalive
+
+on:
+  schedule:
+    # 每月 1 日、15 日 03:23 UTC（北京时间 11:23，避开整点调度高峰）
+    - cron: "23 3 1,15 * *"
+  workflow_dispatch:
+
+concurrency:
+  group: repo-keepalive
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Check days since last commit
+        id: check
+        run: |
+          LAST=$(git log -1 --format=%ct)
+          NOW=$(date -u +%s)
+          DAYS=$(( (NOW - LAST) / 86400 ))
+          echo "days=$DAYS" >> "$GITHUB_OUTPUT"
+          echo "last commit was $DAYS day(s) ago"
+          if [ "$DAYS" -ge 30 ]; then
+            echo "need_commit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "need_commit=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Append heartbeat record
+        if: steps.check.outputs.need_commit == 'true'
+        run: |
+          mkdir -p .github/keepalive
+          printf '%s | heartbeat ok | days since previous commit: %s\n' \
+            "$(date -u '+%Y-%m-%d %H:%M:%S UTC')" "${{ steps.check.outputs.days }}" \
+            >> .github/keepalive/heartbeat.log
+
+      - name: Commit and push
+        if: steps.check.outputs.need_commit == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/keepalive/heartbeat.log
+          git commit -m "chore(keepalive): heartbeat record [skip ci]"
+          # 实测 main 无分支保护，可直接推；若将来开启保护则自动退回 keepalive 分支
+          git push origin HEAD:main || git push origin HEAD:refs/heads/keepalive
